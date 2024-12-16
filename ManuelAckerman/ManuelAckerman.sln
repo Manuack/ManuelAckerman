@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManuelAckerman", "ManuelAckerman\ManuelAckerman.csproj", "{B44EF886-A9F9-405C-A464-46C94F9FF057}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{F80674EE-E7ED-4E1E-82F1-278A409412A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{28602AD8-386B-49B9-8DDF-9556B8A53A65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B44EF886-A9F9-405C-A464-46C94F9FF057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B44EF886-A9F9-405C-A464-46C94F9FF057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B44EF886-A9F9-405C-A464-46C94F9FF057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B44EF886-A9F9-405C-A464-46C94F9FF057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80674EE-E7ED-4E1E-82F1-278A409412A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80674EE-E7ED-4E1E-82F1-278A409412A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80674EE-E7ED-4E1E-82F1-278A409412A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80674EE-E7ED-4E1E-82F1-278A409412A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28602AD8-386B-49B9-8DDF-9556B8A53A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28602AD8-386B-49B9-8DDF-9556B8A53A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28602AD8-386B-49B9-8DDF-9556B8A53A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28602AD8-386B-49B9-8DDF-9556B8A53A65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
