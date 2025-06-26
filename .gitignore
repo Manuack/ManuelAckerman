@@ -41,3 +41,16 @@ data/modellog.ldf
 data/model.mdf
 data/mastlog.ldf
 data/master.mdf
+#Visual Studio & Statiq files
+.vs/
+output/
+temp/
+cache/
+bin/
+obj/
+*.user
+*.db
+*.db-shm
+*.db-wal
+*.vsidx
+*.dtbcache.v2
