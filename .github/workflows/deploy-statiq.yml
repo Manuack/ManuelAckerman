@@ -25,7 +25,7 @@ jobs:
       run: dotnet build ./ManuelAckerman/ManuelAckerman.csproj --configuration Release --no-restore
 
     - name: Generar sitio web con Statiq
-      run: dotnet run --project ./ManuelAckerman/ManuelAckerman.csproj -- preview
+      run: dotnet run --project ./ManuelAckerman/ManuelAckerman.csproj --
 
     - name: Publicar en GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
