@@ -1,0 +1,48 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.instagram-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  cursor: pointer;
+  color: $primary-color;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  
+  @include animated-gradient($accent-gradient);
+  @include hover-transform();
+  
+  .instagram-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+  
+  span {
+    white-space: nowrap;
+  }
+  
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  @media (max-width: $breakpoint-mobile) {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    gap: 10px;
+    
+    .instagram-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

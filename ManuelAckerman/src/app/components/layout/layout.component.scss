@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+
+.layout-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  
+  &.theme-dark {
+    // Estilos específicos para tema oscuro
+    --text-primary: #{$primary-color};
+    --text-secondary: #{$secondary-color};
+  }
+  
+  &.theme-light {
+    // Estilos para tema claro (futuro)
+    --text-primary: #333333;
+    --text-secondary: #666666;
+  }
+}

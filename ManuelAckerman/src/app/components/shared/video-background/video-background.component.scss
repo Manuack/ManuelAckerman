@@ -1,0 +1,39 @@
+@import '../../styles/variables';
+
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-background;
+}
+
+.video-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $overlay-gradient;
+  z-index: $z-overlay;
+}
+
+.fallback-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $fallback-gradient;
+  z-index: $z-background;
+}

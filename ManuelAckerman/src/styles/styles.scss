@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'mixins';
+
+// Reset básico
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: $font-primary;
+  overflow: hidden;
+  background: #000;
+}
+
+// Clases utilitarias
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+// Estados de carga
+.loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+// Estados de error
+.error {
+  color: #ff6b6b;
+}
