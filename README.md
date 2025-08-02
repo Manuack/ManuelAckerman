@@ -136,9 +136,3 @@ ng add @angular/pwa
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para detalles.
-
-## 📞 Contacto
-
-Manuel Ackerman - [@tu_instagram](https://instagram.com/tu_usuario)
-
-Link del Proyecto: [https://github.com/tu-usuario/manuel-ackerman-web](https://github.com/tu-usuario/manuel-ackerman-web)
