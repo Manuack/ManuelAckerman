@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent {
+export class LandingComponent{
   parallaxTransform = 'translate(0,0)';
 
   @HostListener('mousemove', ['$event'])
