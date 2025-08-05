@@ -23,13 +23,29 @@
 
 #bg-video {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  z-index: -2;
+  object-position: 50% 0%;
+  animation: kenburnsVertical 17s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes kenburnsVertical {
+  0% {
+    object-position: 50% 50%;    /* video alineado al techo del contenedor */
+    transform: scale(1);        /* zoom inicial al 100% */
+  }
+  60% {
+    object-position: 50% 75%;  /* video alineado al fondo del contenedor */
+    transform: scale(1.1);      /* zoom final al ~110% */
+  }
+  100% {
+    object-position: 50% 10%;
+    transform: scale(1);  
+  }
 }
 
 .video-wrap::before {
