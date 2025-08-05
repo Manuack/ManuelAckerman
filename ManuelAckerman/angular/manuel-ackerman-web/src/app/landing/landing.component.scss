@@ -1,0 +1,146 @@
+/* landing.component.scss */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;      /* asegurar full-viewport */
+  overflow: hidden;
+}
+
+/* Usa Flexbox para centrar todo el contenido sobre el vídeo */
+.video-wrap {
+  position: fixed;    
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;               /* FLEXBOX! */
+  justify-content: center;     /* centra horizontal */
+  align-items: center;         /* centra vertical */
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+#bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0%;
+  animation: kenburnsVertical 17s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes kenburnsVertical {
+  0% {
+    object-position: 50% 50%;    /* video alineado al techo del contenedor */
+    transform: scale(1);        /* zoom inicial al 100% */
+  }
+  60% {
+    object-position: 50% 75%;  /* video alineado al fondo del contenedor */
+    transform: scale(1.1);      /* zoom final al ~110% */
+  }
+  100% {
+    object-position: 50% 10%;
+    transform: scale(1);  
+  }
+}
+
+.video-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: -1;
+}
+
+.video-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0) 40%,
+    rgba(0,0,0,0.5) 100%
+  );
+  z-index: 1;
+}
+
+.overlay {
+  position: relative;
+  z-index: 1;              /* encima de vignette */
+  max-width: 90%;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);    /* blanco casi transparente */
+  backdrop-filter: blur(0.005px);            /* frosted glass */
+  text-align: center;
+  color: #fff;       /* blanco para todos los textos */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    rgba(0,0,0,1) 70%,
+    rgba(0,0,0,0) 100%
+  );
+  mask-image: radial-gradient(
+    circle at center,
+    rgba(0,0,0,1) 70%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+
+.overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+}
+
+.overlay p {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+.overlay button {
+  padding: 0.75rem 1.5rem;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
+}
+
+.overlay button:hover {
+  background: #1b5e20;
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding: 1.5rem 2rem;
+  }
+  .overlay h1 {
+    font-size: 2.25rem;
+  }
+  .overlay p {
+    font-size: 1rem;
+  }
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 1rem;         /* separarlo 1rem del borde inferior */
+  left: 1rem;           /* separarlo 1rem del borde izquierdo */
+  z-index: 2;           /* encima del vídeo y la capa oscura */
+  color: #fff;          /* o el color que decidas */
+  font-size: 0.600rem;  /* un tamaño discreto */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  padding: 0.25rem 0.5rem;      /* un pequeño relleno */
+  border-radius: 4px;           /* redondeado sutil */
+}
