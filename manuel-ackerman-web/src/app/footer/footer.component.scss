@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 2;
+  color: #fff;
+  font-size: 0.600rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Alternative positioning for non-video backgrounds */
+.page-footer.fixed-bottom {
+  position: fixed;
+}
+
+.page-footer.relative-bottom {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Dark theme variant */
+.page-footer.dark-theme {
+  color: #333;
+  text-shadow: none;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+}
+
+/* Light theme variant */
+.page-footer.light-theme {
+  color: #666;
+  text-shadow: none;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+}

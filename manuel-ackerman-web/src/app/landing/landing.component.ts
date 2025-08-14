@@ -1,11 +1,11 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 
 interface Texts {
   title: string;
   subtitle: string;
   button: string;
-  footer: string;
   videoUnsupported?: string;
 }
 
@@ -14,21 +14,18 @@ const TRANSLATIONS: Record<string, Texts> = {
     title: '¡Get it!',
     subtitle: 'Estoy cocinando algo épico: skate, fotos y historias que no te querés perder.',
     button: 'Seguíme en Instagram',
-    footer: '© {year} Manuel Ackerman. Todos los derechos reservados.',
     videoUnsupported: 'Tu navegador no soporta vídeo HTML5.'
   },
   en: {
     title: 'Get it!',
     subtitle: 'I’m cooking up something epic: skate, photos, and stories you won’t want to miss.',
     button: 'Follow me on Instagram',
-    footer: '© {year} Manuel Ackerman. All rights reserved.',
     videoUnsupported: 'Your browser does not support HTML5 video.'
   },
   pt: {
     title: 'Get it!',
     subtitle: 'Estou preparando algo épico: skate, fotos e histórias que você não vai querer perder.',
     button: 'Siga-me no Instagram',
-    footer: '© {year} Manuel Ackerman. Todos os direitos reservados.',
     videoUnsupported: 'Seu navegador não suporta vídeo em HTML5.'
   }
 };
@@ -36,19 +33,17 @@ const TRANSLATIONS: Record<string, Texts> = {
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FooterComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {
   parallaxTransform = 'translate(0,0)';
   texts: Texts;
-  currentYear = new Date().getFullYear();
 
   constructor() {
     const lang = navigator.language.split('-')[0];
     this.texts = TRANSLATIONS[lang] || TRANSLATIONS['en'];
-    this.texts.footer = this.texts.footer.replace('{year}', this.currentYear.toString());
   }
 
   @HostListener('mousemove', ['$event'])
