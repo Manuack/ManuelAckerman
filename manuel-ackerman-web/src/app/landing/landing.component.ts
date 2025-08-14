@@ -1,34 +1,12 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 
-interface Texts {
-  title: string;
-  subtitle: string;
-  button: string;
-  videoUnsupported?: string;
-}
-
-const TRANSLATIONS: Record<string, Texts> = {
-  es: {
-    title: '¡Get it!',
-    subtitle: 'Estoy cocinando algo épico: skate, fotos y historias que no te querés perder.',
-    button: 'Seguíme en Instagram',
-    videoUnsupported: 'Tu navegador no soporta vídeo HTML5.'
-  },
-  en: {
-    title: 'Get it!',
-    subtitle: 'I’m cooking up something epic: skate, photos, and stories you won’t want to miss.',
-    button: 'Follow me on Instagram',
-    videoUnsupported: 'Your browser does not support HTML5 video.'
-  },
-  pt: {
-    title: 'Get it!',
-    subtitle: 'Estou preparando algo épico: skate, fotos e histórias que você não vai querer perder.',
-    button: 'Siga-me no Instagram',
-    videoUnsupported: 'Seu navegador não suporta vídeo em HTML5.'
-  }
-};
+import { Subscription } from 'rxjs';
+import { Texts, SupportedLanguage } from '../shared/interfaces/texts.interface';
+import { TRANSLATIONS } from '../shared/constants/translations.constant';
+import { LanguageService } from '../core/services/language.service';
+import { ConfigService } from '../core/services/config.service';
 
 @Component({
   selector: 'app-landing',
@@ -37,13 +15,39 @@ const TRANSLATIONS: Record<string, Texts> = {
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit, OnDestroy {
   parallaxTransform = 'translate(0,0)';
   texts: Texts;
+  private languageSubscription: Subscription;
 
-  constructor() {
-    const lang = navigator.language.split('-')[0];
-    this.texts = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+  constructor(
+    private languageService: LanguageService,
+    private configService: ConfigService
+  ) {
+    this.texts = TRANSLATIONS['en']; // Default fallback
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(
+      (language) => this.updateTexts(language)
+    );
+  }
+
+  ngOnInit(): void {
+    // Initial text update
+    this.updateTexts(this.languageService.getCurrentLanguage());
+    
+    // Debug: Log current language and browser language
+    console.log('🌍 Landing Component - Current Language:', this.languageService.getCurrentLanguage());
+    console.log('🌍 Landing Component - Browser Language:', this.languageService.getBrowserLanguage());
+    console.log('🌍 Landing Component - User Preferred Language:', this.languageService.getStoredLanguage());
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
+
+  private updateTexts(language: SupportedLanguage): void {
+    this.texts = TRANSLATIONS[language] || TRANSLATIONS['en'];
   }
 
   @HostListener('mousemove', ['$event'])
@@ -54,6 +58,6 @@ export class LandingComponent {
   }
 
   onInstagramClick() {
-    window.open('https://www.instagram.com/manu_el_ackerman', '_blank');
+    window.open(this.configService.getInstagramUrl(), '_blank');
   }
 }

@@ -1,21 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface FooterTexts {
-  footer: string;
-}
-
-const FOOTER_TRANSLATIONS: Record<string, FooterTexts> = {
-  es: {
-    footer: '© {year} Manuel Ackerman. Todos los derechos reservados.'
-  },
-  en: {
-    footer: '© {year} Manuel Ackerman. All rights reserved.'
-  },
-  pt: {
-    footer: '© {year} Manuel Ackerman. Todos os direitos reservados.'
-  }
-};
+import { Subscription } from 'rxjs';
+import { FooterTexts, SupportedLanguage } from '../shared/interfaces/texts.interface';
+import { FOOTER_TRANSLATIONS } from '../shared/constants/translations.constant';
+import { LanguageService } from '../core/services/language.service';
+import { ConfigService } from '../core/services/config.service';
 
 @Component({
   selector: 'app-footer',
@@ -24,13 +13,33 @@ const FOOTER_TRANSLATIONS: Record<string, FooterTexts> = {
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent {
-  footerText: string;
+export class FooterComponent implements OnInit, OnDestroy {
+  footerText: string = '';
   currentYear = new Date().getFullYear();
+  private languageSubscription: Subscription;
 
-  constructor() {
-    const lang = navigator.language.split('-')[0];
-    const texts = FOOTER_TRANSLATIONS[lang] || FOOTER_TRANSLATIONS['en'];
+  constructor(
+    private languageService: LanguageService,
+    private configService: ConfigService
+  ) {
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(
+      (language) => this.updateFooterText(language)
+    );
+  }
+
+  ngOnInit(): void {
+    // Initial text update
+    this.updateFooterText(this.languageService.getCurrentLanguage());
+  }
+
+  ngOnDestroy(): void {
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+  }
+
+  private updateFooterText(language: SupportedLanguage): void {
+    const texts = FOOTER_TRANSLATIONS[language] || FOOTER_TRANSLATIONS['en'];
     this.footerText = texts.footer.replace('{year}', this.currentYear.toString());
   }
 }
