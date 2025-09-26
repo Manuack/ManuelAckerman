@@ -1,10 +1,37 @@
+## -----------------------------------
+## Archivos de usuario / IDEs
+## -----------------------------------
 *.rsuser
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 *.userprefs
-mono_crash.*
+*.DotSettings.user
+*.sln.iml
+*.vsidx
+*.dtbcache.v2
+
+.vs/
+.idea/
+.vscode/
+*.db
+*.db-shm
+*.db-wal
+
+## Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.binlog
+*.gpState
+
+## NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+## -----------------------------------
+## Builds y artefactos
+## -----------------------------------
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -14,22 +41,65 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-project.lock.json
-project.fragment.lock.json
-artifacts/
-#wwwroot/
+bin/
 obj/
-.idea/
+artifacts/
+output/
+temp/
+cache/
+publish/
+publish/
+packages/
+csx
+
+*.obj
+*.ilk
+*.pch
+*.pdb
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.log
+*.meta
+*.ilk
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.sbr
+*.tmp_proj
+*.Cache
+*.builds
+
+## -----------------------------------
+## Node / Angular
+## -----------------------------------
 node_modules/
+.angular/
+
+## -----------------------------------
+## Configuración sensible
+## -----------------------------------
+.env*
+appsettings.*.json
+
+## -----------------------------------
+## Test / Coverage
+## -----------------------------------
 [Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
-*.binlog
-*.sln.iml
+TestResults/
+test-results/
+coverage/
+analysis/
+
+## -----------------------------------
+## Bases de datos locales
+## -----------------------------------
 *.mdf
 *.ldf
+*.dbmdl
+
 /data/*
 data/templog.ldf
 data/tempdb.mdf
@@ -41,16 +111,14 @@ data/modellog.ldf
 data/model.mdf
 data/mastlog.ldf
 data/master.mdf
-#Visual Studio & Statiq files
-.vs/
-output/
-temp/
-cache/
-bin/
-obj/
-*.user
-*.db
-*.db-shm
-*.db-wal
-*.vsidx
-*.dtbcache.v2
+
+## -----------------------------------
+## Otros
+## -----------------------------------
+mono_crash.*
+*.Publish.xml
+*.psess
+*.vsp
+*.vspx
+sql/
+3rdpartylicenses.txt
