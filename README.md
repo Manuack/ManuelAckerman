@@ -1,5 +1,18 @@
 # Manuel Ackerman - Landing Page
 
+##Branch Status
+## Main
+
+![Build - Test - Main](https://github.com/Manuack/ManuelAckerman/actions/workflows/build-test.yml/badge.svg?branch=main&event=push)
+![Code Analysis - Main](https://github.com/Manuack/ManuelAckerman/actions/workflows/code-analysis.yml/badge.svg?branch=main&event=push)
+
+## Develop
+
+![Build - Test - Develop](https://github.com/Manuack/ManuelAckerman/actions/workflows/build-test.yml/badge.svg?branch=develop&event=push)
+![Code Analysis - Develop](https://github.com/Manuack/ManuelAckerman/actions/workflows/code-analysis.yml/badge.svg?branch=develop&event=push)
+
+
+##Descripción del repo:
 Una landing page moderna y extensible construida con Angular 17, diseñada como página "coming soon" con componentes reutilizables y arquitectura escalable.
 
 ## 🚀 Características
