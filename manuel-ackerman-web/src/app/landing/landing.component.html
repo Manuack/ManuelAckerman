@@ -1,0 +1,23 @@
+<div class="video-wrap">
+  <video
+    id="bg-video"
+    [autoplay]="true"
+    [muted]="true"
+    loop
+    playsinline
+    preload="auto"
+  >
+    <source src="assets/video/coming-soon.webm" type="video/webm" />
+    <source src="assets/video/coming-soon.mp4"  type="video/mp4"  />
+    {{ texts.videoUnsupported }}
+  </video>
+
+  <div class="overlay" [style.transform]="parallaxTransform">
+    <h1 class="title">{{ texts.title }}</h1>
+    <p class="subtitle">{{ texts.subtitle }}</p>
+    <button class="instagram-btn" (click)="onInstagramClick()">
+      {{ texts.button }}
+    </button>
+  </div>
+  <app-footer></app-footer>
+</div>

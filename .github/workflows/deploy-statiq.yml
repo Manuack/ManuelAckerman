@@ -1,0 +1,35 @@
+name: Deploy Statiq Site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Configurar .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restaurar dependencias
+      run: dotnet restore ./ManuelAckerman/ManuelAckerman.csproj
+
+    - name: Construir el proyecto
+      run: dotnet build ./ManuelAckerman/ManuelAckerman.csproj --configuration Release --no-restore
+
+    - name: Generar sitio web con Statiq
+      run: dotnet run --project ./ManuelAckerman/ManuelAckerman.csproj --
+
+    - name: Publicar en GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./ManuelAckerman/output
+        cname: manuelackerman.com
