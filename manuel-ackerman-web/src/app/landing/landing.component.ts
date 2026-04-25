@@ -1,12 +1,14 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 
 import { Subscription } from 'rxjs';
-import { Texts, SupportedLanguage } from '../shared/interfaces/texts.interface';
+import { SupportedLanguage } from '../shared/interfaces/texts.interface';
 import { TRANSLATIONS } from '../shared/constants/translations.constant';
 import { LanguageService } from '../core/i18n/language.service';
 import { ConfigService } from '../core/settings/config.service';
+import { LoggerService } from '../core/logging/logger.service';
+import { LandingViewState } from './landing-view-state';
 
 @Component({
   selector: 'app-landing',
@@ -15,39 +17,59 @@ import { ConfigService } from '../core/settings/config.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit, OnDestroy {
+export class LandingComponent implements OnDestroy {
   parallaxTransform = 'translate(0,0)';
-  texts: Texts;
+  readonly viewState = signal<LandingViewState>({ status: 'loading' });
+
+  readonly isLoading = computed(() => this.viewState().status === 'loading');
+  readonly errorView = computed(() => {
+    const s = this.viewState();
+    return s.status === 'error' ? s : null;
+  });
+  readonly readyView = computed(() => {
+    const s = this.viewState();
+    return s.status === 'ready' ? s : null;
+  });
+
   private languageSubscription: Subscription;
 
   constructor(
     private languageService: LanguageService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private logger: LoggerService
   ) {
-    this.texts = TRANSLATIONS['en']; // Default fallback
-    this.languageSubscription = this.languageService.currentLanguage$.subscribe(
-      (language) => this.updateTexts(language)
+    this.languageSubscription = this.languageService.currentLanguage$.subscribe(() =>
+      this.loadLandingContent()
     );
   }
 
-  ngOnInit(): void {
-    // Initial text update
-    this.updateTexts(this.languageService.getCurrentLanguage());
-    
-    // Debug: Log current language and browser language
-    console.log('🌍 Landing Component - Current Language:', this.languageService.getCurrentLanguage());
-    console.log('🌍 Landing Component - Browser Language:', this.languageService.getBrowserLanguage());
-    console.log('🌍 Landing Component - User Preferred Language:', this.languageService.getStoredLanguage());
+  ngOnDestroy(): void {
+    this.languageSubscription.unsubscribe();
   }
 
-  ngOnDestroy(): void {
-    if (this.languageSubscription) {
-      this.languageSubscription.unsubscribe();
+  retry(): void {
+    this.loadLandingContent();
+  }
+
+  private loadLandingContent(): void {
+    this.viewState.set({ status: 'loading' });
+    try {
+      const language = this.languageService.getCurrentLanguage();
+      const texts = this.resolveTexts(language);
+      this.viewState.set({ status: 'ready', texts });
+      this.logger.debug('Landing content ready', {
+        language,
+        browser: this.languageService.getBrowserLanguage(),
+        stored: this.languageService.getStoredLanguage()
+      });
+    } catch (e) {
+      const message = e instanceof Error ? e.message : 'No se pudo cargar el contenido.';
+      this.viewState.set({ status: 'error', message });
     }
   }
 
-  private updateTexts(language: SupportedLanguage): void {
-    this.texts = TRANSLATIONS[language] || TRANSLATIONS['en'];
+  private resolveTexts(language: SupportedLanguage) {
+    return TRANSLATIONS[language] || TRANSLATIONS['en'];
   }
 
   @HostListener('mousemove', ['$event'])

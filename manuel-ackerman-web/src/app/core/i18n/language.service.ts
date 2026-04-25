@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SupportedLanguage } from '../../shared/interfaces/texts.interface';
+import { LoggerService } from '../logging/logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class LanguageService {
   private currentLanguageSubject = new BehaviorSubject<SupportedLanguage>('en');
   public currentLanguage$: Observable<SupportedLanguage> = this.currentLanguageSubject.asObservable();
 
-  constructor() {
+  constructor(private readonly logger: LoggerService) {
     this.initializeLanguage();
   }
 
@@ -28,14 +29,14 @@ export class LanguageService {
       const browserLang = navigator.language.split('-')[0] as SupportedLanguage;
 
       if (this.isSupportedLanguage(browserLang)) {
-        console.log(`🌍 Browser language detected: ${browserLang}`);
+        this.logger.debug(`🌍 Browser language detected: ${browserLang}`);
         return browserLang;
       }
 
-      console.log(`🌍 Browser language '${browserLang}' not supported, using English`);
+      this.logger.debug(`🌍 Browser language '${browserLang}' not supported, using English`);
       return 'en';
     } catch (error) {
-      console.warn('🌍 Error detecting browser language, using English fallback:', error);
+      this.logger.warn('🌍 Error detecting browser language, using English fallback:', error);
       return 'en';
     }
   }
@@ -64,7 +65,7 @@ export class LanguageService {
     localStorage.removeItem('preferred-language');
     const detectedLang = this.detectLanguage();
     this.currentLanguageSubject.next(detectedLang);
-    console.log(`🌍 Reset to browser language: ${detectedLang}`);
+    this.logger.debug(`🌍 Reset to browser language: ${detectedLang}`);
   }
 
   public getBrowserLanguage(): SupportedLanguage {
