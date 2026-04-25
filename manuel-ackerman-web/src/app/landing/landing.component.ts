@@ -5,8 +5,8 @@ import { FooterComponent } from '../footer/footer.component';
 import { Subscription } from 'rxjs';
 import { Texts, SupportedLanguage } from '../shared/interfaces/texts.interface';
 import { TRANSLATIONS } from '../shared/constants/translations.constant';
-import { LanguageService } from '../core/services/language.service';
-import { ConfigService } from '../core/services/config.service';
+import { LanguageService } from '../core/i18n/language.service';
+import { ConfigService } from '../core/settings/config.service';
 
 @Component({
   selector: 'app-landing',

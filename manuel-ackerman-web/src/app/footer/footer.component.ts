@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { FooterTexts, SupportedLanguage } from '../shared/interfaces/texts.interface';
 import { FOOTER_TRANSLATIONS } from '../shared/constants/translations.constant';
-import { LanguageService } from '../core/services/language.service';
-import { ConfigService } from '../core/services/config.service';
+import { LanguageService } from '../core/i18n/language.service';
+import { ConfigService } from '../core/settings/config.service';
 
 @Component({
   selector: 'app-footer',

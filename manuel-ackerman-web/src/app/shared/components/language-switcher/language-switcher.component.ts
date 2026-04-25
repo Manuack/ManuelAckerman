@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupportedLanguage } from '../../interfaces/texts.interface';
-import { LanguageService } from '../../../core/services/language.service';
+import { LanguageService } from '../../../core/i18n/language.service';
 
 @Component({
   selector: 'app-language-switcher',
@@ -18,7 +18,7 @@ import { LanguageService } from '../../../core/services/language.service';
         [attr.aria-label]="'Switch to ' + getLanguageName(lang)"
         [title]="getLanguageName(lang) + (isBrowserLanguage(lang) ? ' (Browser default)' : '')"
       >
-        <span class="flag">{{ getFlag(lang) }}</span>
+        <img [src]="getFlagImage(lang)" [alt]="getLanguageName(lang)" class="flag-image">
         <span *ngIf="isBrowserLanguage(lang)" class="browser-indicator" title="Browser default">🌐</span>
       </button>
     </div>
@@ -38,10 +38,10 @@ import { LanguageService } from '../../../core/services/language.service';
     }
     
     .lang-btn {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 1.875rem;
+      height: 1.875rem;
       padding: 0;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
       background: rgba(255, 255, 255, 0.1);
       color: white;
       border-radius: 50%;
@@ -52,7 +52,7 @@ import { LanguageService } from '../../../core/services/language.service';
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
     
     .lang-btn:hover {
@@ -71,24 +71,27 @@ import { LanguageService } from '../../../core/services/language.service';
       border-color: rgba(255, 255, 255, 0.7);
     }
     
-    .flag {
-      font-size: 1.25rem;
-      line-height: 1;
+    .flag-image {
+      width: 1.125rem;
+      height: 1.125rem;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
     }
     
     .browser-indicator {
       position: absolute;
-      top: -0.25rem;
-      right: -0.25rem;
+      top: -0.1875rem;
+      right: -0.1875rem;
       font-size: 0.75rem;
       background: rgba(0, 255, 0, 0.8);
       border-radius: 50%;
-      width: 1rem;
-      height: 1rem;
+      width: 0.75rem;
+      height: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.5rem;
+      font-size: 0.375rem;
     }
     
     @media (max-width: 768px) {
@@ -98,13 +101,14 @@ import { LanguageService } from '../../../core/services/language.service';
       }
       
       .lang-btn {
-        width: 2rem;
-        height: 2rem;
-        font-size: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.75rem;
       }
       
-      .flag {
-        font-size: 1rem;
+      .flag-image {
+        width: 0.75rem;
+        height: 0.75rem;
       }
     }
   `]
@@ -136,9 +140,13 @@ export class LanguageSwitcherComponent implements OnInit {
     return names[lang];
   }
 
-  getFlag(lang: SupportedLanguage): string {
-    const flags = { es: '🇪🇸', en: '🇺🇸', pt: '🇵🇹' };
-    return flags[lang];
+  getFlagImage(lang: SupportedLanguage): string {
+    const flagImages = {
+      es: 'assets/images/flags/spain.png',
+      en: 'assets/images/flags/usa.png',
+      pt: 'assets/images/flags/portugal.png'
+    };
+    return flagImages[lang] || '';
   }
 
   isBrowserLanguage(lang: SupportedLanguage): boolean {
